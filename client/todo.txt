@@ -1,0 +1,7 @@
+what I am going to do: 
+    [1] Install the vite 
+    [1] install shadcn 
+    [1] the routes to implement it 
+    [1] shadcn 
+    [] react query 
+    [] if we are going to add animation latr 
