@@ -1,8 +1,12 @@
+import AppLayout from "@/layouts/AppLayout";
+
 const Profile = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold">Profile</h1>
-    </div>
+    <AppLayout>
+      <div>
+        <h1>Profile</h1>
+      </div>
+    </AppLayout>
   );
 };
 

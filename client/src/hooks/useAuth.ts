@@ -28,7 +28,7 @@ export function useLogin() {
  */
 export function useGetProfile() {
   return useQuery({
-    queryKey: ["profile"],
+    queryKey: ["user"],
     queryFn: getProfile,
   });
 }
@@ -44,7 +44,7 @@ export function useLogout() {
     mutationFn: logout,
     onSuccess: () => {
       dispatch(setUser(null));
-      queryClient.removeQueries({ queryKey: ["profile"] });
+      queryClient.removeQueries({ queryKey: ["user"] });
     },
     onError: (error) => {
       console.error(error);

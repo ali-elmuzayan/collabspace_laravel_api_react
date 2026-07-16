@@ -1,5 +1,13 @@
+import AppLayout from "@/layouts/AppLayout";
+
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <AppLayout>
+      <div>
+        <h1>Dashboard</h1>
+      </div>
+    </AppLayout>
+  );
 };
 
 export default Dashboard;
