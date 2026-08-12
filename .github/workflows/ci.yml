@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  client:
+    name: Client
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+        env:
+          VITE_API_URL: /api
+
+  backend:
+    name: backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: mbstring, pdo-sqlite, sqlite3, bcmath, intl, zip, redis
+          coverage: none
+
+      - name: Get Composer Cache dir
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('backend/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Prepare Laravel env
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - run: vendor/bin/pint --test
+      - run: php artisan test --compact
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create compose env
+        run: |
+          cat > .env << 'EOF'
+          MYSQL_ROOT_PASSWORD=root
+          MYSQL_DATABASE=project_management
+          EOF
+      - name: Build images
+        run: docker compose build
