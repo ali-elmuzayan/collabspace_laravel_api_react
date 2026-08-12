@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable('name', 'slug', 'type', 'start_date', 'end_date', 'deadline', 'duration', 'status', 'priority', 'created_by')]
 class Project extends Model
 {
     //
-
-
 
     /**
      * The attributes that should be cast.

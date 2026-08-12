@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->enum('role', [ 'editor', 'viewer'])->default('viewer');
+            $table->enum('role', ['editor', 'viewer'])->default('viewer');
             $table->timestamps();
         });
     }

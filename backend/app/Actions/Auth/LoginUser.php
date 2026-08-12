@@ -2,21 +2,26 @@
 
 namespace App\Actions\Auth;
 
-use App\Http\Requests\Api\V1\Auth\LoginRequest;
+use App\DTOs\Auth\LoginData;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
 class LoginUser
 {
-    public function handle(LoginRequest $request) 
+    public function handle(LoginData $data)
     {
-        if(!Auth::attempt($request->only('email', 'password'))) {
+
+        $credentials = [
+            'email' => $data->email,
+            'password' => $data->password,
+        ];
+
+        if (! Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Invalid credentials'
+                'message' => 'Invalid credentials',
             ], 401);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $user = Auth::user();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 

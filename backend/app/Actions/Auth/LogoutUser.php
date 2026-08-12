@@ -2,16 +2,13 @@
 
 namespace App\Actions\Auth;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use App\Models\User;
+
 class LogoutUser
 {
-
-
-    public function handle(Request $request) 
+    public function handle(User $user)
     {
-        Auth::logout();
-        $request->user()->currentAccessToken()->delete();
-        return true; // success
+
+        $user->tokens()->delete();
     }
 }

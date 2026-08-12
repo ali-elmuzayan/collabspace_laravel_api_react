@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('status')->default('detached');
             $table->nullableMorphs('attachable');
             $table->timestamps();
-            
+
             // Relationships:
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
 
