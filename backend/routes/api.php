@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\V1\Auth\AuthenticatedUserController;
 use App\Http\Controllers\Api\V1\Auth\RegisteredUserController;
+use App\Http\Controllers\Api\V1\Project\ProjectController;
+use App\Stats\CacheController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -15,4 +17,16 @@ Route::prefix('auth')->name('auth.')->group(function () {
         Route::get('/user', [AuthenticatedUserController::class, 'show'])->name('user.show');
         Route::post('/logout', [AuthenticatedUserController::class, 'destroy'])->name('logout');
     });
+});
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    /**
+     * Project Routes
+     */
+    Route::apiResource('projects', ProjectController::class)->only(['index', 'show', 'store', 'update']);
+
+    /**
+     * States
+     */
+    Route::get('/stats/cache', [CacheController::class, 'index']);
 });
