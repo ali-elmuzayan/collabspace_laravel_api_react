@@ -1,177 +1,58 @@
-# Project Management Platform
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-A full-stack project management application for teams. Collaborate on projects and tasks, share files, chat with teammates, talk to an internal AI assistant, and keep meetings on a shared calendar.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Features
+## About Laravel
 
-- **Teams & projects** — Organize work by team and project
-- **Task management** — Create, assign, and track tasks across projects
-- **File management** — Upload, share, and manage project files
-- **Team chat** — Real-time internal messaging between team members
-- **AI chat** — Built-in AI assistant for project-related help
-- **Calendar** — View meetings, deadlines, and team events in one place
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## Tech Stack
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-| Layer | Technologies |
-|--------|----------------|
-| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS, shadcn/ui, React Router, Redux Toolkit, TanStack React Query |
-| **Backend** | Laravel 13, PHP 8.3+, Laravel Sanctum (API auth) |
-| **Database** | MySQL (configurable via `.env`) |
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Project Structure
+## Learning Laravel
 
-```
-04_project_management/
-├── client/                 # React frontend (Vite SPA)
-│   ├── public/
-│   ├── src/
-│   │   ├── api/            # HTTP helpers (fetch wrappers)
-│   │   ├── components/     # UI & shared components (shadcn in ui/)
-│   │   ├── Guard/          # Route protection
-│   │   ├── hooks/          # React Query & custom hooks
-│   │   ├── layouts/        # App & auth layouts
-│   │   ├── lib/            # Utilities (cn, tokens, etc.)
-│   │   ├── pages/          # Route-level pages
-│   │   ├── store/          # Redux store & slices
-│   │   ├── types/          # Shared TypeScript types
-│   │   ├── App.tsx         # Routes
-│   │   └── main.tsx
-│   ├── .env                # VITE_API_URL
-│   └── package.json
-│
-└── backend/                # Laravel API
-    ├── app/
-    │   ├── Actions/        # Application actions
-    │   ├── Http/
-    │   │   ├── Controllers/Api/V1/
-    │   │   └── Requests/Api/V1/
-    │   ├── Models/
-    │   └── Providers/
-    ├── config/
-    ├── database/
-    │   ├── migrations/
-    │   ├── factories/
-    │   └── seeders/
-    ├── routes/
-    │   ├── api.php         # API routes
-    │   └── web.php
-    ├── tests/
-    └── composer.json
-```
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-## Prerequisites
+In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-- **Node.js** 20+ and npm
-- **PHP** 8.3+
-- **Composer**
-- **MySQL** (or another DB configured in Laravel)
+You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-## Getting Started
+## Agentic Development
 
-### 1. Clone the repository
+Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
 
 ```bash
-git clone <repository-url>
-cd 04_project_management
+composer require laravel/boost --dev
+
+php artisan boost:install
 ```
 
-### 2. Backend (Laravel)
+Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
 
-```bash
-cd backend
+## Contributing
 
-# Install PHP dependencies
-composer install
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-# Environment
-cp .env.example .env
-php artisan key:generate
+## Code of Conduct
 
-# Configure database in .env (MySQL example):
-# DB_CONNECTION=mysql
-# DB_HOST=127.0.0.1
-# DB_PORT=3306
-# DB_DATABASE=backend
-# DB_USERNAME=root
-# DB_PASSWORD=
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-# Run migrations
-php artisan migrate
+## Security Vulnerabilities
 
-# Start the API (default: http://localhost:8000)
-php artisan serve
-```
-
-Optional: run the full Laravel local stack (server, queue, logs, Vite for backend assets):
-
-```bash
-composer run dev
-```
-
-### 3. Frontend (React + Vite)
-
-Open a second terminal:
-
-```bash
-cd client
-
-# Install dependencies
-npm install
-
-# Ensure API URL points at the Laravel API
-# client/.env → VITE_API_URL=http://localhost:8000/api
-
-# Start the dev server (default: http://localhost:5173)
-npm run dev
-```
-
-### 4. Open the app
-
-| Service | URL |
-|---------|-----|
-| Frontend | [http://localhost:5173](http://localhost:5173) |
-| Backend API | [http://localhost:8000/api](http://localhost:8000/api) |
-
-## Useful Commands
-
-### Frontend (`client/`)
-
-```bash
-npm run dev       # Development server
-npm run build     # Typecheck + production build
-npm run lint      # ESLint
-npm run preview   # Preview production build
-```
-
-### Backend (`backend/`)
-
-```bash
-php artisan serve           # Start API server
-php artisan migrate         # Run migrations
-php artisan test            # Run Pest tests
-composer run setup          # Install, env, migrate, build
-composer run dev            # Server + queue + logs + Vite
-```
-
-## API Overview
-
-Auth endpoints are versioned under `/api/v1/auth`:
-
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/api/v1/auth/login` | Sign in |
-| `POST` | `/api/v1/auth/logout` | Sign out |
-| `GET` | `/api/v1/auth/user` | Current authenticated user |
-
-Authentication uses **Laravel Sanctum**. The frontend talks to the API via `VITE_API_URL` (see `client/src/api/client.ts`).
-
-## Architecture Notes
-
-- **Frontend**: React Query for server state; Redux for auth/UI client state. Pages stay thin; logic lives in hooks and API modules.
-- **Backend**: Versioned JSON API (`Api/V1`), form requests for validation, Sanctum for auth.
-- **UI**: Tailwind CSS v4 + shadcn/ui. Add components with `npx shadcn@latest add <component>`.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-MIT
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
