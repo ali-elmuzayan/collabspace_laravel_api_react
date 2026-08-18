@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('file_type');
             $table->unsignedBigInteger('size');
             $table->string('status')->default('detached');
-            $table->nullableMorphs('attachable');
+            $table->nullableMorphs('fileable');
             $table->timestamps();
 
             // Relationships:
